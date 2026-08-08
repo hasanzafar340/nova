@@ -279,10 +279,6 @@ function addUserMessage(
 
         </div>
 
-        <div class="avatar">
-            Y
-        </div>
-
     `;
 
 
@@ -348,9 +344,7 @@ function addAssistantMessage(
 
     message.innerHTML = `
 
-        <div class="avatar">
-            N
-        </div>
+        
 
         <div class="message-content">
 
