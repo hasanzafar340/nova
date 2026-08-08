@@ -3,169 +3,214 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nova - Voice Assistant</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="theme-color"
+        content="#080b0f"
+    >
+
+    <title>Nova — Voice Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
-<div class="app">
+<div class="app-shell">
 
-    <header class="header">
+    <main class="main">
 
-        <div>
-            <h1>Nova</h1>
-            <p>Voice Assistant developed by Bits & Bytes</p>
-        </div>
+        <!-- TOP BAR -->
+        <header class="topbar">
 
-        <div class="status">
-            <span id="statusDot"></span>
-            <span id="statusText">Ready</span>
-        </div>
+            <div class="brand">
 
-    </header>
+                <!-- <div class="brand-mark">
+                    N
+                </div> -->
 
+                <div class="brand-info">
 
-    <main class="assistant-container">
+                    <h1>Nova</h1>
 
-        <div class="assistant-circle" id="assistantCircle">
-            <div class="mic-icon">🎙️</div>
-        </div>
+                    <span>
+                        Voice Assistant Developed by Bits & Bytes
+                    </span>
 
-
-        <h2 id="assistantTitle">
-            Hi, I'm Nova
-        </h2>
-
-
-        <p id="assistantSubtitle">
-            Ask me something in Urdu or English
-        </p>
-
-
-        <!-- Conversation -->
-
-        <div class="conversation">
-
-            <div class="message user-message">
-
-                <div class="message-label">
-                    You
-                </div>
-
-                <div id="userText">
-                    Press the microphone and speak...
                 </div>
 
             </div>
 
 
-            <div class="message assistant-message">
+            <div class="topbar-right">
 
-                <div class="message-label">
-                    Nova
+                <!-- LANGUAGE -->
+
+                <div class="language-selector">
+
+                    <button
+                        class="language-btn active"
+                        data-language="auto"
+                    >
+                        Auto
+                    </button>
+
+                    <button
+                        class="language-btn"
+                        data-language="ur-PK"
+                    >
+                        اردو
+                    </button>
+
+                    <button
+                        class="language-btn"
+                        data-language="en-US"
+                    >
+                        English
+                    </button>
+
                 </div>
 
-                <div id="assistantText">
-                    I'm ready to help you.
+
+                <div class="header-divider"></div>
+
+
+                <div class="status">
+
+                    <span
+                        class="status-dot"
+                    ></span>
+
+                    <span id="statusText">
+                        Ready
+                    </span>
+
                 </div>
+
+
+                <button
+                    id="clearChatButton"
+                    class="clear-chat"
+                >
+                    Clear
+                </button>
 
             </div>
 
-        </div>
+        </header>
 
 
-        <!-- Language -->
+        <!-- CHAT -->
 
-        <div class="language-selector">
+        <section
+            id="chatContainer"
+            class="chat-container"
+        >
 
-            <button
-                class="language-btn active"
-                data-language="auto">
-                Auto
-            </button>
-
-            <button
-                class="language-btn"
-                data-language="ur-PK">
-                🇵🇰 اردو
-            </button>
-
-            <button
-                class="language-btn"
-                data-language="en-US">
-                🇬🇧 English
-            </button>
-
-        </div>
-
-
-        <!-- Controls -->
-
-        <div class="controls">
-
-            <button
-                id="micButton"
-                class="mic-button">
-
-                <span>🎤</span>
-
-                <span id="micButtonText">
-                    Start Listening
-                </span>
-
-            </button>
-
-
-            <button
-                id="stopButton"
-                class="stop-button">
-
-                Stop
-
-            </button>
-
-        </div>
-
-
-        <!-- Text input -->
-
-        <div class="text-input-container">
-
-            <input
-                type="text"
-                id="textInput"
-                placeholder="Type your question..."
+            <div
+                id="welcomeScreen"
+                class="welcome-screen"
             >
 
-            <button id="sendButton">
-                Send
-            </button>
+                <div class="nova-orb">
 
-        </div>
+                    <div class="orb-inner">
+                        N
+                    </div>
+
+                </div>
+
+                <h2>
+                    How can I help?
+                </h2>
+
+                <p>
+                    Ask Nova a question in
+                    English or Urdu.
+                </p>
+
+            </div>
+
+        </section>
 
 
-        <div class="language-info">
+        <!-- COMPOSER -->
 
-            <span>🇵🇰 Urdu</span>
+        <section class="composer-area">
 
-            <span>🇬🇧 English</span>
+            <div
+                id="listeningIndicator"
+                class="listening-indicator"
+            >
 
-        </div>
+                <span class="wave"></span>
+                <span class="wave"></span>
+                <span class="wave"></span>
+
+                <span>
+                    Listening...
+                </span>
+
+            </div>
+
+
+            <div class="composer">
+
+                <button
+                    id="micButton"
+                    class="mic-button"
+                    aria-label="Start listening"
+                >
+                    <span class="mic-symbol"></span>
+                </button>
+
+
+                <input
+                    id="textInput"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Ask Nova anything..."
+                >
+
+
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    aria-label="Send message"
+                >
+                    ↑
+                </button>
+
+            </div>
+
+
+            <div class="composer-footer">
+
+                <span>
+                    Nova answers from your
+                    knowledge base
+                </span>
+
+                <button
+                    id="stopButton"
+                    class="stop-button"
+                >
+                    Stop
+                </button>
+
+            </div>
+
+        </section>
 
     </main>
-
-
-    <footer>
-
-        <p>
-            Nova • Voice Assistant
-        </p>
-
-    </footer>
 
 </div>
 

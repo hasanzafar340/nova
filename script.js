@@ -1,19 +1,10 @@
 // ============================================================
-// NOVA VOICE ASSISTANT
-// Urdu + English
-// JSON Based Knowledge
-// Pure JavaScript
-// ============================================================
-
-
-// ============================================================
-// GLOBAL VARIABLES
+// NOVA
+// Premium Chat + Voice Assistant
 // ============================================================
 
 let questions = [];
-
 let recognition = null;
-
 let isListening = false;
 
 let selectedLanguage = "auto";
@@ -22,32 +13,14 @@ let availableVoices = [];
 
 
 // ============================================================
-// DOM ELEMENTS
+// DOM
 // ============================================================
 
-const micButton =
-    document.getElementById("micButton");
+const chatContainer =
+    document.getElementById("chatContainer");
 
-const micButtonText =
-    document.getElementById("micButtonText");
-
-const stopButton =
-    document.getElementById("stopButton");
-
-const userText =
-    document.getElementById("userText");
-
-const assistantText =
-    document.getElementById("assistantText");
-
-const assistantCircle =
-    document.getElementById("assistantCircle");
-
-const statusText =
-    document.getElementById("statusText");
-
-const statusDot =
-    document.getElementById("statusDot");
+const welcomeScreen =
+    document.getElementById("welcomeScreen");
 
 const textInput =
     document.getElementById("textInput");
@@ -55,12 +28,27 @@ const textInput =
 const sendButton =
     document.getElementById("sendButton");
 
+const micButton =
+    document.getElementById("micButton");
+
+const stopButton =
+    document.getElementById("stopButton");
+
+const clearChatButton =
+    document.getElementById("clearChatButton");
+
+const statusText =
+    document.getElementById("statusText");
+
+const listeningIndicator =
+    document.getElementById("listeningIndicator");
+
 const languageButtons =
     document.querySelectorAll(".language-btn");
 
 
 // ============================================================
-// LOAD QUESTIONS.JSON
+// LOAD JSON
 // ============================================================
 
 async function loadQuestions() {
@@ -73,7 +61,7 @@ async function loadQuestions() {
         if (!response.ok) {
 
             throw new Error(
-                "questions.json could not be loaded"
+                "Unable to load questions.json"
             );
 
         }
@@ -82,22 +70,20 @@ async function loadQuestions() {
             await response.json();
 
         console.log(
-            "Nova knowledge base loaded:",
-            questions.length,
-            "entries"
+            "Nova database:",
+            questions.length
         );
 
     }
 
     catch (error) {
 
-        console.error(
-            "JSON ERROR:",
-            error
-        );
+        console.error(error);
 
-        assistantText.textContent =
-            "Nova could not load her knowledge database.";
+        addAssistantMessage(
+            "Nova could not load her knowledge database.",
+            "en"
+        );
 
     }
 
@@ -105,7 +91,369 @@ async function loadQuestions() {
 
 
 // ============================================================
-// SPEECH SYNTHESIS
+// SESSION CHAT
+// ============================================================
+
+const STORAGE_KEY =
+    "nova_session_chat";
+
+
+// ============================================================
+// SAVE CHAT
+// ============================================================
+
+function saveChat() {
+
+    const messages =
+        Array.from(
+            document.querySelectorAll(
+                ".chat-message"
+            )
+        )
+        .map(message => {
+
+            const type =
+                message.classList.contains(
+                    "user"
+                )
+                    ? "user"
+                    : "assistant";
+
+
+            const bubble =
+                message.querySelector(
+                    ".message-bubble"
+                );
+
+
+            const language =
+                message.classList.contains(
+                    "urdu"
+                )
+                    ? "ur"
+                    : "en";
+
+
+            return {
+
+                type,
+
+                text:
+                    bubble
+                        ? bubble.textContent
+                        : "",
+
+                language
+
+            };
+
+        });
+
+
+    sessionStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(messages)
+    );
+
+}
+
+
+// ============================================================
+// LOAD CHAT
+// ============================================================
+
+function loadChat() {
+
+    const saved =
+        sessionStorage.getItem(
+            STORAGE_KEY
+        );
+
+
+    if (!saved) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const messages =
+            JSON.parse(saved);
+
+
+        messages.forEach(
+            function (message) {
+
+                if (
+                    message.type ===
+                    "user"
+                ) {
+
+                    addUserMessage(
+                        message.text,
+                        message.language,
+                        false
+                    );
+
+                }
+
+                else {
+
+                    addAssistantMessage(
+                        message.text,
+                        message.language,
+                        false
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Chat restore error:",
+            error
+        );
+
+        sessionStorage.removeItem(
+            STORAGE_KEY
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// ADD USER MESSAGE
+// ============================================================
+
+function addUserMessage(
+    text,
+    language = "en",
+    save = true
+) {
+
+    if (welcomeScreen) {
+
+        welcomeScreen.style.display =
+            "none";
+
+    }
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "chat-message user";
+
+
+    if (language === "ur") {
+
+        message.classList.add(
+            "urdu"
+        );
+
+    }
+
+
+    message.innerHTML = `
+
+        <div class="message-content">
+
+            <div class="message-name">
+                You
+            </div>
+
+            <div class="message-bubble"></div>
+
+        </div>
+
+        <div class="avatar">
+            YOU
+        </div>
+
+    `;
+
+
+    message.querySelector(
+        ".message-bubble"
+    ).textContent =
+        text;
+
+
+    chatContainer.appendChild(
+        message
+    );
+
+
+    scrollToBottom();
+
+
+    if (save) {
+
+        saveChat();
+
+    }
+
+}
+
+
+// ============================================================
+// ADD ASSISTANT MESSAGE
+// ============================================================
+
+function addAssistantMessage(
+    text,
+    language = "en",
+    save = true
+) {
+
+    if (welcomeScreen) {
+
+        welcomeScreen.style.display =
+            "none";
+
+    }
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "chat-message assistant";
+
+
+    if (language === "ur") {
+
+        message.classList.add(
+            "urdu"
+        );
+
+    }
+
+
+    message.innerHTML = `
+
+        <div class="avatar">
+            N
+        </div>
+
+        <div class="message-content">
+
+            <div class="message-name">
+                Nova
+            </div>
+
+            <div class="message-bubble"></div>
+
+        </div>
+
+    `;
+
+
+    message.querySelector(
+        ".message-bubble"
+    ).textContent =
+        text;
+
+
+    chatContainer.appendChild(
+        message
+    );
+
+
+    scrollToBottom();
+
+
+    if (save) {
+
+        saveChat();
+
+    }
+
+}
+
+
+// ============================================================
+// SCROLL
+// ============================================================
+
+function scrollToBottom() {
+
+    setTimeout(
+        function () {
+
+            chatContainer.scrollTop =
+                chatContainer.scrollHeight;
+
+        },
+        50
+    );
+
+}
+
+
+// ============================================================
+// CLEAR CHAT
+// ============================================================
+
+function clearChat() {
+
+    const messages =
+        chatContainer.querySelectorAll(
+            ".chat-message"
+        );
+
+
+    messages.forEach(
+        function (message) {
+
+            message.remove();
+
+        }
+    );
+
+
+    sessionStorage.removeItem(
+        STORAGE_KEY
+    );
+
+
+    if (welcomeScreen) {
+
+        welcomeScreen.style.display =
+            "flex";
+
+    }
+
+
+    textInput.focus();
+
+}
+
+
+clearChatButton.addEventListener(
+    "click",
+    clearChat
+);
+
+
+// ============================================================
+// VOICES
 // ============================================================
 
 function loadVoices() {
@@ -113,10 +461,6 @@ function loadVoices() {
     if (
         !("speechSynthesis" in window)
     ) {
-
-        console.error(
-            "Speech synthesis is not supported."
-        );
 
         return;
 
@@ -126,29 +470,8 @@ function loadVoices() {
     availableVoices =
         window.speechSynthesis.getVoices();
 
-
-    console.log(
-        "Available voices:",
-        availableVoices
-    );
-
-
-    availableVoices.forEach(
-        function (voice) {
-
-            console.log(
-                voice.name,
-                "|",
-                voice.lang
-            );
-
-        }
-    );
-
 }
 
-
-// Chrome sometimes loads voices asynchronously.
 
 if (
     "speechSynthesis" in window
@@ -157,97 +480,79 @@ if (
     loadVoices();
 
     window.speechSynthesis.onvoiceschanged =
-        function () {
-
-            loadVoices();
-
-        };
+        loadVoices;
 
 }
 
 
 // ============================================================
-// CHECK WHETHER TEXT IS URDU
+// URDU VOICE
 // ============================================================
 
-function isUrduText(text) {
+function getUrduVoice() {
 
-    /*
-        Urdu uses Arabic/Persian Unicode characters.
-
-        Example:
-
-        آپ کا نام کیا ہے؟
-
-        This function returns TRUE.
-
-        Roman Urdu:
-
-        Aap ka naam kya hai?
-
-        This returns FALSE.
-    */
+    const voices =
+        availableVoices;
 
 
-    const urduPattern =
-        /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/;
-
-
-    return urduPattern.test(text);
-
-}
-
-
-// ============================================================
-// DETECT LANGUAGE
-// ============================================================
-
-function detectLanguage(text) {
-
-    if (
-        isUrduText(text)
-    ) {
-
-        return "ur";
-
-    }
-
-
-    return "en";
-
-}
-
-
-// ============================================================
-// FIND URDU VOICE
-// ============================================================
-
-function findUrduVoice() {
-
-    if (
-        availableVoices.length === 0
-    ) {
+    if (!voices.length) {
 
         return null;
 
     }
 
 
-    /*
-        Priority:
+    const femaleKeywords = [
+        "female",
+        "woman",
+        "zira",
+        "uzma",
+        "sana",
+        "ayesha"
+    ];
 
-        1. Pakistani Urdu
-        2. Any Urdu voice
-        3. Voice containing Urdu in name
-    */
 
-
-    // --------------------------------------------------------
-    // 1. Pakistani Urdu
-    // --------------------------------------------------------
+    // Female Urdu
 
     let voice =
-        availableVoices.find(
+        voices.find(
+            function (v) {
+
+                const lang =
+                    v.lang.toLowerCase();
+
+                const name =
+                    v.name.toLowerCase();
+
+
+                return (
+
+                    lang.startsWith("ur") &&
+
+                    femaleKeywords.some(
+                        keyword =>
+                            name.includes(
+                                keyword
+                            )
+                    )
+
+                );
+
+            }
+        );
+
+
+    if (voice) {
+
+        return voice;
+
+    }
+
+
+    // Pakistani Urdu
+
+    voice =
+        voices.find(
             function (v) {
 
                 return (
@@ -266,184 +571,45 @@ function findUrduVoice() {
     }
 
 
-    // --------------------------------------------------------
-    // 2. Any Urdu voice
-    // --------------------------------------------------------
+    // Any Urdu
 
-    voice =
-        availableVoices.find(
-            function (v) {
+    return voices.find(
+        function (v) {
 
-                return v.lang
-                    .toLowerCase()
-                    .startsWith("ur");
+            return v.lang
+                .toLowerCase()
+                .startsWith("ur");
 
-            }
-        );
-
-
-    if (voice) {
-
-        return voice;
-
-    }
-
-
-    // --------------------------------------------------------
-    // 3. Search voice name
-    // --------------------------------------------------------
-
-    voice =
-        availableVoices.find(
-            function (v) {
-
-                return v.name
-                    .toLowerCase()
-                    .includes("urdu");
-
-            }
-        );
-
-
-    return voice || null;
+        }
+    ) || null;
 
 }
 
 
 // ============================================================
-// FIND FEMALE URDU VOICE
+// ENGLISH VOICE
 // ============================================================
 
-function findFemaleUrduVoice() {
+function getEnglishVoice() {
 
-    if (
-        availableVoices.length === 0
-    ) {
-
-        return null;
-
-    }
+    const voices =
+        availableVoices;
 
 
-    const femaleNames = [
-
+    const femaleKeywords = [
         "female",
-
         "woman",
-
-        "girl",
-
         "zira",
-
-        "sara",
-
-        "sana",
-
-        "ayesha",
-
-        "heera",
-
-        "uzma",
-
-        "aria"
-
-    ];
-
-
-    // --------------------------------------------------------
-    // Search Urdu + female name
-    // --------------------------------------------------------
-
-    let voice =
-        availableVoices.find(
-            function (v) {
-
-                const lang =
-                    v.lang.toLowerCase();
-
-                const name =
-                    v.name.toLowerCase();
-
-
-                return (
-
-                    lang.startsWith("ur") &&
-
-                    femaleNames.some(
-                        function (keyword) {
-
-                            return name.includes(
-                                keyword
-                            );
-
-                        }
-                    )
-
-                );
-
-            }
-        );
-
-
-    if (voice) {
-
-        return voice;
-
-    }
-
-
-    // --------------------------------------------------------
-    // If no female Urdu voice,
-    // use any Urdu voice.
-    // --------------------------------------------------------
-
-    return findUrduVoice();
-
-}
-
-
-// ============================================================
-// FIND FEMALE ENGLISH VOICE
-// ============================================================
-
-function findFemaleEnglishVoice() {
-
-    if (
-        availableVoices.length === 0
-    ) {
-
-        return null;
-
-    }
-
-
-    const femaleNames = [
-
-        "female",
-
-        "woman",
-
-        "girl",
-
-        "zira",
-
         "samantha",
-
         "susan",
-
         "hazel",
-
         "aria",
-
-        "jenny",
-
-        "libby"
-
+        "jenny"
     ];
 
 
     let voice =
-        availableVoices.find(
+        voices.find(
             function (v) {
 
                 const lang =
@@ -457,14 +623,11 @@ function findFemaleEnglishVoice() {
 
                     lang.startsWith("en") &&
 
-                    femaleNames.some(
-                        function (keyword) {
-
-                            return name.includes(
+                    femaleKeywords.some(
+                        keyword =>
+                            name.includes(
                                 keyword
-                            );
-
-                        }
+                            )
                     )
 
                 );
@@ -480,9 +643,7 @@ function findFemaleEnglishVoice() {
     }
 
 
-    // Fallback
-
-    return availableVoices.find(
+    return voices.find(
         function (v) {
 
             return v.lang
@@ -496,55 +657,25 @@ function findFemaleEnglishVoice() {
 
 
 // ============================================================
-// SELECT NOVA VOICE
+// SPEAK
 // ============================================================
 
-function getNovaVoice(language) {
-
-    if (
-        language === "ur"
-    ) {
-
-        return findFemaleUrduVoice();
-
-    }
-
-
-    return findFemaleEnglishVoice();
-
-}
-
-
-// ============================================================
-// SPEAK TEXT
-// ============================================================
-
-function speak(text, language) {
+function speak(
+    text,
+    language
+) {
 
     if (
         !("speechSynthesis" in window)
     ) {
-
-        console.error(
-            "Speech synthesis is not available."
-        );
 
         return;
 
     }
 
 
-    // Stop previous speech.
-
     window.speechSynthesis.cancel();
 
-
-    /*
-        Sometimes Chrome doesn't return voices
-        immediately.
-
-        Try loading them again.
-    */
 
     loadVoices();
 
@@ -555,10 +686,6 @@ function speak(text, language) {
         );
 
 
-    // ========================================================
-    // URDU
-    // ========================================================
-
     if (
         language === "ur"
     ) {
@@ -567,50 +694,18 @@ function speak(text, language) {
             "ur-PK";
 
 
-        const urduVoice =
-            findFemaleUrduVoice();
+        const voice =
+            getUrduVoice();
 
 
-        if (urduVoice) {
+        if (voice) {
 
             utterance.voice =
-                urduVoice;
-
-
-            console.log(
-                "Nova Urdu voice:",
-                urduVoice.name,
-                urduVoice.lang
-            );
-
-        }
-
-        else {
-
-            /*
-                No Urdu voice installed.
-
-                The text is still Urdu,
-                but browser may use its
-                default voice.
-            */
-
-            console.warn(
-                "NO URDU TTS VOICE FOUND."
-            );
-
-            console.warn(
-                "Install an Urdu speech voice in Windows/browser."
-            );
+                voice;
 
         }
 
     }
-
-
-    // ========================================================
-    // ENGLISH
-    // ========================================================
 
     else {
 
@@ -618,30 +713,19 @@ function speak(text, language) {
             "en-US";
 
 
-        const englishVoice =
-            findFemaleEnglishVoice();
+        const voice =
+            getEnglishVoice();
 
 
-        if (englishVoice) {
+        if (voice) {
 
             utterance.voice =
-                englishVoice;
-
-
-            console.log(
-                "Nova English voice:",
-                englishVoice.name,
-                englishVoice.lang
-            );
+                voice;
 
         }
 
     }
 
-
-    // ========================================================
-    // VOICE CHARACTER
-    // ========================================================
 
     utterance.rate =
         language === "ur"
@@ -650,22 +734,18 @@ function speak(text, language) {
 
 
     utterance.pitch =
-        1.12;
+        1.08;
 
 
     utterance.volume =
-        1.0;
+        1;
 
-
-    // ========================================================
-    // EVENTS
-    // ========================================================
 
     utterance.onstart =
         function () {
 
             statusText.textContent =
-                "Nova is speaking...";
+                "Speaking";
 
         };
 
@@ -679,24 +759,6 @@ function speak(text, language) {
         };
 
 
-    utterance.onerror =
-        function (event) {
-
-            console.error(
-                "TTS ERROR:",
-                event
-            );
-
-            statusText.textContent =
-                "Ready";
-
-        };
-
-
-    // ========================================================
-    // SPEAK
-    // ========================================================
-
     window.speechSynthesis.speak(
         utterance
     );
@@ -705,120 +767,28 @@ function speak(text, language) {
 
 
 // ============================================================
-// SPEECH RECOGNITION
+// LANGUAGE DETECTION
 // ============================================================
 
-const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+function isUrduText(text) {
+
+    return /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/
+        .test(text);
+
+}
 
 
-if (!SpeechRecognition) {
+function detectLanguage(text) {
 
-    console.error(
-        "Speech Recognition not supported."
-    );
-
-
-    assistantText.textContent =
-        "Please use Google Chrome or Microsoft Edge.";
-
-    micButton.disabled = true;
+    return isUrduText(text)
+        ? "ur"
+        : "en";
 
 }
 
 
 // ============================================================
-// CREATE RECOGNITION
-// ============================================================
-
-if (SpeechRecognition) {
-
-    recognition =
-        new SpeechRecognition();
-
-
-    recognition.continuous =
-        false;
-
-
-    recognition.interimResults =
-        false;
-
-
-    recognition.maxAlternatives =
-        5;
-
-}
-
-
-// ============================================================
-// LANGUAGE SELECTION
-// ============================================================
-
-languageButtons.forEach(
-    function (button) {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                languageButtons.forEach(
-                    function (btn) {
-
-                        btn.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                this.classList.add(
-                    "active"
-                );
-
-
-                selectedLanguage =
-                    this.dataset.language;
-
-
-                if (
-                    selectedLanguage ===
-                    "ur-PK"
-                ) {
-
-                    assistantSubtitle.textContent =
-                        "اردو میں سوال پوچھیں";
-
-                }
-
-                else if (
-                    selectedLanguage ===
-                    "en-US"
-                ) {
-
-                    assistantSubtitle.textContent =
-                        "Ask your question in English";
-
-                }
-
-                else {
-
-                    assistantSubtitle.textContent =
-                        "Ask me something in Urdu or English";
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-// ============================================================
-// NORMALIZE TEXT
+// NORMALIZE
 // ============================================================
 
 function normalizeText(text) {
@@ -843,7 +813,7 @@ function normalizeText(text) {
 
 
 // ============================================================
-// WORD SIMILARITY
+// SIMILARITY
 // ============================================================
 
 function calculateSimilarity(
@@ -858,8 +828,6 @@ function calculateSimilarity(
         normalizeText(target);
 
 
-    // Exact match
-
     if (
         input === target
     ) {
@@ -868,8 +836,6 @@ function calculateSimilarity(
 
     }
 
-
-    // Phrase match
 
     if (
         input.includes(target) ||
@@ -914,30 +880,23 @@ function calculateSimilarity(
         );
 
 
-    if (
-        total === 0
-    ) {
-
-        return 0;
-
-    }
-
-
-    return matches / total;
+    return total
+        ? matches / total
+        : 0;
 
 }
 
 
 // ============================================================
-// FIND BEST JSON QUESTION
+// FIND BEST QUESTION
 // ============================================================
 
 function findBestQuestion(
-    userQuestion,
+    question,
     language
 ) {
 
-    let bestMatch = null;
+    let bestItem = null;
 
     let bestScore = 0;
 
@@ -945,15 +904,13 @@ function findBestQuestion(
     questions.forEach(
         function (item) {
 
-            const databaseQuestion =
+            const target =
                 language === "ur"
                     ? item.question_ur
                     : item.question_en;
 
 
-            if (
-                !databaseQuestion
-            ) {
+            if (!target) {
 
                 return;
 
@@ -962,8 +919,8 @@ function findBestQuestion(
 
             const score =
                 calculateSimilarity(
-                    userQuestion,
-                    databaseQuestion
+                    question,
+                    target
                 );
 
 
@@ -974,7 +931,7 @@ function findBestQuestion(
                 bestScore =
                     score;
 
-                bestMatch =
+                bestItem =
                     item;
 
             }
@@ -986,7 +943,7 @@ function findBestQuestion(
     return {
 
         item:
-            bestMatch,
+            bestItem,
 
         score:
             bestScore
@@ -997,7 +954,7 @@ function findBestQuestion(
 
 
 // ============================================================
-// GET ANSWER
+// ANSWER
 // ============================================================
 
 function getAnswer(
@@ -1012,21 +969,6 @@ function getAnswer(
         );
 
 
-    console.log(
-        "Nova match:",
-        result
-    );
-
-
-    /*
-        Match threshold.
-
-        0.30 = forgiving
-
-        You can increase this to 0.40
-        if Nova gives wrong answers.
-    */
-
     if (
         !result.item ||
         result.score < 0.30
@@ -1037,34 +979,24 @@ function getAnswer(
         ) {
 
             return {
-
                 text:
                     "معذرت، مجھے اس سوال کا جواب اپنے ڈیٹا بیس میں نہیں ملا۔",
-
-                found:
-                    false
-
+                language:
+                    "ur"
             };
 
         }
 
 
         return {
-
             text:
                 "Sorry, I could not find an answer to that question in my database.",
-
-            found:
-                false
-
+            language:
+                "en"
         };
 
     }
 
-
-    // ========================================================
-    // URDU ANSWER
-    // ========================================================
 
     if (
         language === "ur"
@@ -1075,25 +1007,21 @@ function getAnswer(
             text:
                 result.item.answer_ur,
 
-            found:
-                true
+            language:
+                "ur"
 
         };
 
     }
 
 
-    // ========================================================
-    // ENGLISH ANSWER
-    // ========================================================
-
     return {
 
         text:
             result.item.answer_en,
 
-        found:
-            true
+        language:
+            "en"
 
     };
 
@@ -1101,7 +1029,7 @@ function getAnswer(
 
 
 // ============================================================
-// PROCESS QUESTION
+// PROCESS
 // ============================================================
 
 function processQuestion(
@@ -1112,18 +1040,12 @@ function processQuestion(
         question.trim();
 
 
-    if (
-        !question
-    ) {
+    if (!question) {
 
         return;
 
     }
 
-
-    // --------------------------------------------------------
-    // Detect language from actual text.
-    // --------------------------------------------------------
 
     const language =
         detectLanguage(
@@ -1131,23 +1053,11 @@ function processQuestion(
         );
 
 
-    console.log(
-        "Nova detected:",
+    addUserMessage(
+        question,
         language
     );
 
-
-    // --------------------------------------------------------
-    // Display user question.
-    // --------------------------------------------------------
-
-    userText.textContent =
-        question;
-
-
-    // --------------------------------------------------------
-    // Get answer.
-    // --------------------------------------------------------
 
     const result =
         getAnswer(
@@ -1156,22 +1066,45 @@ function processQuestion(
         );
 
 
-    // --------------------------------------------------------
-    // Display answer.
-    // --------------------------------------------------------
+    addAssistantMessage(
+        result.text,
+        result.language
+    );
 
-    assistantText.textContent =
-        result.text;
-
-
-    // --------------------------------------------------------
-    // Speak answer in same language.
-    // --------------------------------------------------------
 
     speak(
         result.text,
-        language
+        result.language
     );
+
+}
+
+
+// ============================================================
+// SPEECH RECOGNITION
+// ============================================================
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+if (SpeechRecognition) {
+
+    recognition =
+        new SpeechRecognition();
+
+
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        false;
+
+
+    recognition.maxAlternatives =
+        5;
 
 }
 
@@ -1183,15 +1116,7 @@ function processQuestion(
 function startListening() {
 
     if (
-        !recognition
-    ) {
-
-        return;
-
-    }
-
-
-    if (
+        !recognition ||
         isListening
     ) {
 
@@ -1200,21 +1125,7 @@ function startListening() {
     }
 
 
-    // ========================================================
-    // SELECT RECOGNITION LANGUAGE
-    // ========================================================
-
     if (
-        selectedLanguage ===
-        "ur-PK"
-    ) {
-
-        recognition.lang =
-            "ur-PK";
-
-    }
-
-    else if (
         selectedLanguage ===
         "en-US"
     ) {
@@ -1227,12 +1138,8 @@ function startListening() {
     else {
 
         /*
-            IMPORTANT:
-
-            Auto mode defaults to Urdu because
-            your primary requirement is Urdu.
-
-            If you want English, press English.
+            Urdu is default because
+            Nova is designed for Urdu.
         */
 
         recognition.lang =
@@ -1241,66 +1148,42 @@ function startListening() {
     }
 
 
-    console.log(
-        "Recognition language:",
-        recognition.lang
-    );
-
-
     try {
 
         recognition.start();
+
+        isListening =
+            true;
+
+        micButton.classList.add(
+            "listening"
+        );
+
+        listeningIndicator.classList.add(
+            "active"
+        );
+
+        statusText.textContent =
+            "Listening";
 
     }
 
     catch (error) {
 
-        console.error(
-            "Recognition start error:",
-            error
-        );
-
-        return;
+        console.error(error);
 
     }
-
-
-    isListening =
-        true;
-
-
-    assistantCircle.classList.add(
-        "listening"
-    );
-
-
-    micButtonText.textContent =
-        "Listening...";
-
-
-    statusText.textContent =
-        "Listening";
-
-
-    statusDot.style.background =
-        "#ef4444";
-
-
-    statusDot.style.boxShadow =
-        "0 0 10px #ef4444";
 
 }
 
 
 // ============================================================
-// STOP LISTENING
+// STOP
 // ============================================================
 
 function stopListening() {
 
-    if (
-        !recognition
-    ) {
+    if (!recognition) {
 
         return;
 
@@ -1320,51 +1203,42 @@ function stopListening() {
     }
 
 
-    resetListeningUI();
+    resetListening();
 
 }
 
 
 // ============================================================
-// RESET UI
+// RESET LISTENING
 // ============================================================
 
-function resetListeningUI() {
+function resetListening() {
 
     isListening =
         false;
 
 
-    assistantCircle.classList.remove(
+    micButton.classList.remove(
         "listening"
     );
 
 
-    micButtonText.textContent =
-        "Start Listening";
+    listeningIndicator.classList.remove(
+        "active"
+    );
 
 
     statusText.textContent =
         "Ready";
 
-
-    statusDot.style.background =
-        "#22c55e";
-
-
-    statusDot.style.boxShadow =
-        "0 0 10px #22c55e";
-
 }
 
 
 // ============================================================
-// SPEECH RESULT
+// RECOGNITION RESULT
 // ============================================================
 
-if (
-    recognition
-) {
+if (recognition) {
 
     recognition.onresult =
         function (event) {
@@ -1382,19 +1256,9 @@ if (
 
 
             console.log(
-                "RAW RECOGNITION:",
+                "Nova heard:",
                 transcript
             );
-
-
-            /*
-                Even if browser returns Roman Urdu,
-                we can't magically convert it into Urdu
-                script here.
-
-                Therefore the user should select
-                Urdu mode when speaking Urdu.
-            */
 
 
             processQuestion(
@@ -1403,10 +1267,6 @@ if (
 
         };
 
-
-    // ========================================================
-    // RECOGNITION ERROR
-    // ========================================================
 
     recognition.onerror =
         function (event) {
@@ -1422,8 +1282,10 @@ if (
                 "not-allowed"
             ) {
 
-                assistantText.textContent =
-                    "Please allow microphone access for Nova.";
+                addAssistantMessage(
+                    "Please allow microphone access for Nova.",
+                    "en"
+                );
 
             }
 
@@ -1432,42 +1294,23 @@ if (
                 "no-speech"
             ) {
 
-                assistantText.textContent =
-                    "Nova didn't hear anything. Please try again.";
-
-            }
-
-            else if (
-                event.error ===
-                "network"
-            ) {
-
-                assistantText.textContent =
-                    "Speech recognition requires a network connection in this browser.";
-
-            }
-
-            else {
-
-                assistantText.textContent =
-                    "Nova could not understand that. Please try again.";
+                addAssistantMessage(
+                    "Nova didn't hear anything. Please try again.",
+                    "en"
+                );
 
             }
 
 
-            resetListeningUI();
+            resetListening();
 
         };
 
 
-    // ========================================================
-    // RECOGNITION END
-    // ========================================================
-
     recognition.onend =
         function () {
 
-            resetListeningUI();
+            resetListening();
 
         };
 
@@ -1475,7 +1318,7 @@ if (
 
 
 // ============================================================
-// MICROPHONE BUTTON
+// BUTTON EVENTS
 // ============================================================
 
 micButton.addEventListener(
@@ -1484,44 +1327,26 @@ micButton.addEventListener(
 );
 
 
-// ============================================================
-// STOP BUTTON
-// ============================================================
-
 stopButton.addEventListener(
     "click",
     stopListening
 );
 
 
-// ============================================================
-// TEXT SEND
-// ============================================================
-
 sendButton.addEventListener(
     "click",
     function () {
 
-        const question =
-            textInput.value.trim();
-
-
-        if (
-            !question
-        ) {
-
-            return;
-
-        }
-
-
         processQuestion(
-            question
+            textInput.value
         );
 
 
         textInput.value =
             "";
+
+
+        textInput.focus();
 
     }
 );
@@ -1540,6 +1365,8 @@ textInput.addEventListener(
             "Enter"
         ) {
 
+            event.preventDefault();
+
             sendButton.click();
 
         }
@@ -1549,19 +1376,45 @@ textInput.addEventListener(
 
 
 // ============================================================
-// INITIALIZE NOVA
+// LANGUAGE BUTTONS
+// ============================================================
+
+languageButtons.forEach(
+    function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                languageButtons.forEach(
+                    btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                selectedLanguage =
+                    this.dataset.language;
+
+            }
+        );
+
+    }
+);
+
+
+// ============================================================
+// INITIALIZE
 // ============================================================
 
 loadQuestions();
 
+loadChat();
 
-// Make sure voices are loaded.
-
-setTimeout(
-    function () {
-
-        loadVoices();
-
-    },
-    1000
-);
+textInput.focus();
