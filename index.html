@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nova - Voice Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <header class="header">
+
+        <div>
+            <h1>Nova</h1>
+            <p>Voice Assistant developed by Bits & Bytes</p>
+        </div>
+
+        <div class="status">
+            <span id="statusDot"></span>
+            <span id="statusText">Ready</span>
+        </div>
+
+    </header>
+
+
+    <main class="assistant-container">
+
+        <div class="assistant-circle" id="assistantCircle">
+            <div class="mic-icon">🎙️</div>
+        </div>
+
+
+        <h2 id="assistantTitle">
+            Hi, I'm Nova
+        </h2>
+
+
+        <p id="assistantSubtitle">
+            Ask me something in Urdu or English
+        </p>
+
+
+        <!-- Conversation -->
+
+        <div class="conversation">
+
+            <div class="message user-message">
+
+                <div class="message-label">
+                    You
+                </div>
+
+                <div id="userText">
+                    Press the microphone and speak...
+                </div>
+
+            </div>
+
+
+            <div class="message assistant-message">
+
+                <div class="message-label">
+                    Nova
+                </div>
+
+                <div id="assistantText">
+                    I'm ready to help you.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Language -->
+
+        <div class="language-selector">
+
+            <button
+                class="language-btn active"
+                data-language="auto">
+                Auto
+            </button>
+
+            <button
+                class="language-btn"
+                data-language="ur-PK">
+                🇵🇰 اردو
+            </button>
+
+            <button
+                class="language-btn"
+                data-language="en-US">
+                🇬🇧 English
+            </button>
+
+        </div>
+
+
+        <!-- Controls -->
+
+        <div class="controls">
+
+            <button
+                id="micButton"
+                class="mic-button">
+
+                <span>🎤</span>
+
+                <span id="micButtonText">
+                    Start Listening
+                </span>
+
+            </button>
+
+
+            <button
+                id="stopButton"
+                class="stop-button">
+
+                Stop
+
+            </button>
+
+        </div>
+
+
+        <!-- Text input -->
+
+        <div class="text-input-container">
+
+            <input
+                type="text"
+                id="textInput"
+                placeholder="Type your question..."
+            >
+
+            <button id="sendButton">
+                Send
+            </button>
+
+        </div>
+
+
+        <div class="language-info">
+
+            <span>🇵🇰 Urdu</span>
+
+            <span>🇬🇧 English</span>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Nova • Voice Assistant
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

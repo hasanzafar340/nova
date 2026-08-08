@@ -1,0 +1,140 @@
+[
+    {
+        "id": 1,
+        "question_en": "What is your name?",
+        "question_ur": "آپ کا نام کیا ہے؟",
+        "answer_en": "My name is Nova.",
+        "answer_ur": "میرا نام نووا ہے۔"
+    },
+    {
+        "id": 2,
+        "question_en": "Who are you?",
+        "question_ur": "آپ کون ہیں؟",
+        "answer_en": "I am Nova, your voice assistant.",
+        "answer_ur": "میں نووا ہوں، آپ کا وائس اسسٹنٹ۔"
+    },
+    {
+        "id": 3,
+        "question_en": "What can you do?",
+        "question_ur": "آپ کیا کر سکتے ہیں؟",
+        "answer_en": "I can answer questions from my knowledge database.",
+        "answer_ur": "میں اپنے معلوماتی ڈیٹا بیس سے سوالات کے جوابات دے سکتی ہوں۔"
+    },
+
+  {
+    "question_en": "What is the difference between affiliation and registration?",
+    "answer_en": "Registration typically refers to being recorded as an educational entity with a government authority. Affiliation is the formal partnership process that authorizes an institution to deliver specific qualification awarding body's programs and offer recognized certifications.",
+    "question_ur": "الحاق اور رجسٹریشن میں کیا فرق ہے؟",
+    "answer_ur": "رجسٹریشن سے مراد عام طور پر کسی تعلیمی ادارے کا حکومتی ادارے کے ساتھ بطور تعلیمی ادارہ رجسٹرڈ ہونا ہے۔ جبکہ الحاق ایک باقاعدہ شراکت داری کا عمل ہے جس کے ذریعے کسی ادارے کو مخصوص کوالیفکیشن ایوارڈنگ باڈی کے پروگرامز کروانے اور تسلیم شدہ سرٹیفکیٹس جاری کرنے کی اجازت حاصل ہوتی ہے۔"
+  },
+  {
+    "question_en": "How long is the affiliation valid for?",
+    "answer_en": "Affiliation is generally granted for a specific period, often one year, which may be renewable upon successful review and application.",
+    "question_ur": "الحاق کتنے عرصے کے لیے مؤثر ہوتا ہے؟",
+    "answer_ur": "الحاق عام طور پر ایک مخصوص مدت کے لیے دیا جاتا ہے، جو اکثر ایک سال ہوتی ہے۔ کامیاب جائزے اور درخواست کے بعد اسے دوبارہ تجدید کیا جا سکتا ہے۔"
+  },
+  {
+    "question_en": "What is the procedure for paying affiliation fees?",
+    "answer_en": "Fees can typically be paid via specified bank instruments like pay orders or online transfers, following instructions provided on the official fee structure document.",
+    "question_ur": "الحاق کی فیس ادا کرنے کا طریقہ کیا ہے؟",
+    "answer_ur": "فیس عام طور پر مقررہ بینک ذرائع، جیسے پے آرڈر یا آن لائن بینک ٹرانسفر کے ذریعے ادا کی جا سکتی ہے۔ ادائیگی کے لیے سرکاری فیس اسٹرکچر دستاویز میں دی گئی ہدایات پر عمل کرنا ضروری ہے۔"
+  },
+  {
+    "question_en": "When and how will the inspection visit be conducted?",
+    "answer_en": "An assessment visit is scheduled after a preliminary review of your application. During the visit, experts assess facilities, faculty qualifications, and academic processes.",
+    "question_ur": "انسپیکشن وزٹ کب اور کیسے کیا جائے گا؟",
+    "answer_ur": "آپ کی درخواست کے ابتدائی جائزے کے بعد ایک اسیسمنٹ وزٹ مقرر کیا جاتا ہے۔ اس دورے کے دوران ماہرین ادارے کی سہولیات، فیکلٹی کی قابلیت اور تعلیمی طریقہ کار کا جائزہ لیتے ہیں۔"
+  },
+  {
+    "question_en": "Is there a specific checklist for the visit?",
+    "answer_en": "Yes, a detailed checklist covering infrastructure, equipment, teaching staff, and management protocols will be provided beforehand in the application form to help you prepare.",
+    "question_ur": "کیا وزٹ کے لیے کوئی مخصوص چیک لسٹ موجود ہے؟",
+    "answer_ur": "جی ہاں، انفراسٹرکچر، آلات، تدریسی عملے اور انتظامی طریقہ کار پر مشتمل ایک تفصیلی چیک لسٹ پہلے سے فراہم کی جائے گی تاکہ آپ وزٹ کے لیے مناسب تیاری کر سکیں۔"
+  },
+  {
+    "question_en": "Where can I find the application or affiliation form?",
+    "answer_en": "The application forms and detailed requirement guides are available on our official website or can be obtained from this office.",
+    "question_ur": "درخواست یا الحاق فارم کہاں سے حاصل کیا جا سکتا ہے؟",
+    "answer_ur": "درخواست فارم اور تفصیلی تقاضوں سے متعلق رہنما دستاویزات ہماری سرکاری ویب سائٹ پر دستیاب ہیں یا اس دفتر سے حاصل کیے جا سکتے ہیں۔"
+  },
+  {
+    "question_en": "What documents are required for the application?",
+    "answer_en": "Key documents include your institute's registration, proof of financial stability, CVs of faculty, infrastructure details, and the completed application form along with fee submission evidence.",
+    "question_ur": "درخواست کے لیے کون سی دستاویزات درکار ہیں؟",
+    "answer_ur": "اہم دستاویزات میں ادارے کی رجسٹریشن، مالی استحکام کا ثبوت، فیکلٹی کے سی وی، انفراسٹرکچر کی تفصیلات اور مکمل شدہ درخواست فارم کے ساتھ فیس جمع کروانے کا ثبوت شامل ہیں۔"
+  },
+  {
+    "question_en": "Are there student-to-teacher ratio requirements?",
+    "answer_en": "Yes, maintaining a specific ratio, commonly 20:1, is often a requirement to ensure quality training.",
+    "question_ur": "کیا طلبہ اور اساتذہ کے تناسب سے متعلق کوئی شرط ہے؟",
+    "answer_ur": "جی ہاں، معیاری تربیت کو یقینی بنانے کے لیے طلبہ اور اساتذہ کا ایک مخصوص تناسب برقرار رکھنا ضروری ہوتا ہے، جو عام طور پر 20:1 ہوتا ہے۔"
+  },
+  {
+    "question_en": "Who can I contact if my question isn't answered here?",
+    "answer_en": "For specific or complex inquiries, you can use the contact details provided on our website to reach our affiliation department.",
+    "question_ur": "اگر میرے سوال کا جواب یہاں موجود نہ ہو تو میں کس سے رابطہ کر سکتا ہوں؟",
+    "answer_ur": "مخصوص یا پیچیدہ سوالات کے لیے آپ ہماری ویب سائٹ پر فراہم کردہ رابطہ معلومات کے ذریعے ہمارے الحاق کے شعبے سے رابطہ کر سکتے ہیں۔"
+  },
+  {
+    "question_en": "What is the difference between CBT&A and non-CBT curriculum?",
+    "answer_en": "CBT&A (Competency-Based Training and Assessment) focuses on practical skills and performance standards set by industry, while non-CBT programs are often more traditionally theory-based with fixed academic timelines.",
+    "question_ur": "CBT&A اور غیر CBT نصاب میں کیا فرق ہے؟",
+    "answer_ur": "CBT&A یعنی Competency-Based Training and Assessment عملی مہارتوں اور صنعت کی جانب سے مقرر کردہ کارکردگی کے معیارات پر توجہ دیتا ہے، جبکہ غیر CBT پروگرامز عموماً روایتی نظریاتی تعلیم پر مبنی ہوتے ہیں اور ان میں مقررہ تعلیمی مدت ہوتی ہے۔"
+  },
+  {
+    "question_en": "Must we follow only the validated curriculum?",
+    "answer_en": "Yes, to ensure certification consistency, institutes are required to implement curriculum that has been validated by the appropriate authorities, such as NAVTTC.",
+    "question_ur": "کیا ہمیں صرف منظور شدہ نصاب ہی پر عمل کرنا ضروری ہے؟",
+    "answer_ur": "جی ہاں، سرٹیفیکیشن میں یکسانیت کو یقینی بنانے کے لیے اداروں کو متعلقہ حکام، جیسے NAVTTC، سے منظور شدہ اور تصدیق شدہ نصاب پر عمل کرنا ضروری ہے۔"
+  },
+  {
+    "question_en": "Can we get a private curriculum validated?",
+    "answer_en": "There may be a procedure for this, which usually involves submitting the curriculum for rigorous review by an expert committee to ensure it meets national standards.",
+    "question_ur": "کیا ہم اپنے نجی نصاب کی توثیق کروا سکتے ہیں؟",
+    "answer_ur": "اس کے لیے ایک مخصوص طریقہ کار موجود ہو سکتا ہے، جس میں عموماً نصاب کو ایک ماہر کمیٹی کے تفصیلی جائزے کے لیے جمع کروایا جاتا ہے تاکہ یہ یقینی بنایا جا سکے کہ وہ قومی معیارات پر پورا اترتا ہے۔"
+  },
+  {
+    "question_en": "What is the process for updating curricula?",
+    "answer_en": "Curricula are periodically reviewed and updated in collaboration with industry experts to reflect modern technological advancements and job market demands.",
+    "question_ur": "نصاب کو اپ ڈیٹ کرنے کا طریقہ کار کیا ہے؟",
+    "answer_ur": "نصاب کا وقتاً فوقتاً جائزہ لیا جاتا ہے اور صنعت کے ماہرین کے تعاون سے اسے جدید ٹیکنالوجی کی ترقی اور روزگار کی مارکیٹ کی ضروریات کے مطابق اپ ڈیٹ کیا جاتا ہے۔"
+  },
+  {
+    "question_en": "How does CBT benefit students?",
+    "answer_en": "CBT provides students with demonstrable practical skills that are directly mapped to industry requirements, enhancing their employability.",
+    "question_ur": "CBT سے طلبہ کو کیا فائدہ ہوتا ہے؟",
+    "answer_ur": "CBT طلبہ کو ایسی عملی مہارتیں فراہم کرتا ہے جن کا براہ راست تعلق صنعتی ضروریات سے ہوتا ہے، جس سے ان کی ملازمت حاصل کرنے کی صلاحیت اور روزگار کے مواقع بہتر ہوتے ہیں۔"
+  },
+  {
+    "question_en": "Are there training requirements for faculty to deliver CBT?",
+    "answer_en": "Yes, instructors often need specific training in CBT&A methodologies to effectively teach and assess students according to those standards.",
+    "question_ur": "کیا CBT کروانے کے لیے فیکلٹی کی تربیت ضروری ہے؟",
+    "answer_ur": "جی ہاں، اساتذہ اور انسٹرکٹرز کو عموماً CBT&A کے طریقہ کار سے متعلق خصوصی تربیت کی ضرورت ہوتی ہے تاکہ وہ مقررہ معیارات کے مطابق طلبہ کو مؤثر طریقے سے تعلیم اور اسیسمنٹ فراہم کر سکیں۔"
+  },
+  {
+    "question_en": "Where can we get copies of standard curricula?",
+    "answer_en": "Validated curricula for different trades can usually be accessed through our official portal or obtained directly from NAVTTC.",
+    "question_ur": "معیاری نصاب کی نقول کہاں سے حاصل کی جا سکتی ہیں؟",
+    "answer_ur": "مختلف ٹریڈز کے لیے منظور شدہ نصاب عموماً ہمارے سرکاری پورٹل سے حاصل کیے جا سکتے ہیں یا براہ راست NAVTTC سے لیے جا سکتے ہیں۔"
+  },
+  {
+    "question_en": "Can our institute develop its own assessment packs?",
+    "answer_en": "If using CBT, assessment tools must follow the national competency standards and approved assessment pack guidelines.",
+    "question_ur": "کیا ہمارا ادارہ اپنا اسیسمنٹ پیک تیار کر سکتا ہے؟",
+    "answer_ur": "اگر CBT کا نظام استعمال کیا جا رہا ہو تو اسیسمنٹ ٹولز کو قومی competency standards اور منظور شدہ assessment pack guidelines کے مطابق ہونا ضروری ہے۔"
+  },
+  {
+    "question_en": "How is CBT student assessment different?",
+    "answer_en": "Instead of traditional exams, students are continuously assessed on whether they can perform specific tasks competently and meet the required standards.",
+    "question_ur": "CBT میں طلبہ کی اسیسمنٹ روایتی طریقہ کار سے کیسے مختلف ہوتی ہے؟",
+    "answer_ur": "روایتی امتحانات کے بجائے CBT میں طلبہ کی مسلسل اس بنیاد پر اسیسمنٹ کی جاتی ہے کہ آیا وہ مخصوص کام مہارت کے ساتھ انجام دے سکتے ہیں اور مطلوبہ معیارات پر پورا اترتے ہیں۔"
+  },
+  {
+    "question_en": "Is there support available for implementing CBT?",
+    "answer_en": "We offer guidance and periodic workshops to assist affiliated institutes in transitioning to and implementing CBT&A effectively.",
+    "question_ur": "کیا CBT نافذ کرنے کے لیے معاونت دستیاب ہے؟",
+    "answer_ur": "جی ہاں، ہم الحاق شدہ اداروں کو CBT&A کی طرف منتقلی اور اسے مؤثر طریقے سے نافذ کرنے کے لیے رہنمائی اور وقتاً فوقتاً ورکشاپس فراہم کرتے ہیں۔"
+  }
+
+    
+]
