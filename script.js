@@ -280,7 +280,7 @@ function addUserMessage(
         </div>
 
         <div class="avatar">
-            YOU
+            Y
         </div>
 
     `;
