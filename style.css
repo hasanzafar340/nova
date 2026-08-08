@@ -1,31 +1,26 @@
 /* =====================================================
-   NOVA — PREMIUM CHAT UI
+   NOVA — RESPONSIVE PREMIUM VOICE ASSISTANT
 ===================================================== */
 
 :root {
-
     --bg: #080b0f;
-
     --surface: #0d1218;
-
     --surface-2: #111821;
-
     --surface-3: #151e28;
 
-    --border: rgba(255,255,255,0.08);
-
-    --border-light: rgba(255,255,255,0.13);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.13);
 
     --text: #f2f5f7;
-
     --muted: #87919d;
-
     --muted-2: #59636f;
 
     --accent: #4f8cff;
+    --accent-hover: #6198ff;
 
     --success: #35c78a;
 
+    --header-height: 70px;
 }
 
 
@@ -34,27 +29,20 @@
 ===================================================== */
 
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
 
-
-html,
-body {
-
+html {
     width: 100%;
-
     height: 100%;
-
 }
 
-
 body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
 
     font-family:
         Inter,
@@ -66,11 +54,12 @@ body {
         sans-serif;
 
     background: var(--bg);
-
     color: var(--text);
 
     overflow: hidden;
 
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 
@@ -79,31 +68,27 @@ body {
 ===================================================== */
 
 .app-shell {
-
-    width: 100vw;
-
-    height: 100vh;
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
 
     background:
         radial-gradient(
             circle at 50% -10%,
-            rgba(47,92,160,0.12),
+            rgba(47, 92, 160, 0.12),
             transparent 35%
         );
-
 }
 
-
 .main {
-
     width: 100%;
-
     height: 100%;
 
     display: flex;
-
     flex-direction: column;
 
+    min-width: 0;
+    min-height: 0;
 }
 
 
@@ -112,29 +97,33 @@ body {
 ===================================================== */
 
 .topbar {
-
-    height: 70px;
-
-    flex-shrink: 0;
+    width: 100%;
+    min-height: var(--header-height);
 
     padding:
-        0 30px;
+        0 clamp(14px, 3vw, 30px);
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
+
+    gap: 15px;
+
+    flex-shrink: 0;
 
     border-bottom:
         1px solid var(--border);
 
     background:
-        rgba(8,11,15,0.82);
+        rgba(8, 11, 15, 0.88);
 
     backdrop-filter:
         blur(14px);
 
+    -webkit-backdrop-filter:
+        blur(14px);
+
+    z-index: 10;
 }
 
 
@@ -143,32 +132,26 @@ body {
 ===================================================== */
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
     gap: 11px;
 
+    min-width: 0;
 }
 
-
 .brand-mark {
-
     width: 38px;
-
     height: 38px;
+
+    flex-shrink: 0;
 
     border-radius: 11px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 15px;
-
     font-weight: 700;
 
     background:
@@ -179,34 +162,27 @@ body {
         );
 
     box-shadow:
-        0 8px 20px
-        rgba(37,99,235,0.25),
-
-        inset 0 1px 1px
-        rgba(255,255,255,0.25);
-
+        0 8px 20px rgba(37, 99, 235, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
+.brand-info {
+    min-width: 0;
+}
 
 .brand-info h1 {
-
     font-size: 15px;
-
     font-weight: 650;
-
+    line-height: 1.2;
 }
 
-
 .brand-info span {
-
     display: block;
 
     margin-top: 2px;
 
     font-size: 10px;
-
     color: var(--muted);
-
 }
 
 
@@ -215,24 +191,21 @@ body {
 ===================================================== */
 
 .topbar-right {
-
     display: flex;
-
     align-items: center;
 
-    gap: 14px;
+    gap: clamp(6px, 1.5vw, 14px);
 
+    min-width: 0;
 }
 
 
 /* =====================================================
-   LANGUAGE SELECTOR
+   LANGUAGE
 ===================================================== */
 
 .language-selector {
-
     display: flex;
-
     align-items: center;
 
     padding: 3px;
@@ -243,13 +216,12 @@ body {
     border-radius: 10px;
 
     background:
-        rgba(255,255,255,0.025);
+        rgba(255, 255, 255, 0.025);
 
+    flex-shrink: 0;
 }
 
-
 .language-btn {
-
     border: 0;
 
     background: transparent;
@@ -265,46 +237,41 @@ body {
 
     cursor: pointer;
 
+    white-space: nowrap;
+
     transition:
-        0.18s ease;
-
+        background 0.18s ease,
+        color 0.18s ease;
 }
-
 
 .language-btn:hover {
-
     color: var(--text);
-
 }
 
-
 .language-btn.active {
-
     color: white;
 
     background:
-        rgba(79,140,255,0.15);
+        rgba(79, 140, 255, 0.15);
 
     box-shadow:
-        inset 0 0 0
-        1px rgba(79,140,255,0.12);
-
+        inset 0 0 0 1px
+        rgba(79, 140, 255, 0.12);
 }
 
 
 /* =====================================================
-   DIVIDER
+   HEADER DIVIDER
 ===================================================== */
 
 .header-divider {
-
     width: 1px;
-
     height: 22px;
+
+    flex-shrink: 0;
 
     background:
         var(--border);
-
 }
 
 
@@ -313,9 +280,7 @@ body {
 ===================================================== */
 
 .status {
-
     display: flex;
-
     align-items: center;
 
     gap: 6px;
@@ -324,14 +289,14 @@ body {
 
     font-size: 10px;
 
+    white-space: nowrap;
 }
 
-
 .status-dot {
-
     width: 6px;
-
     height: 6px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -340,17 +305,15 @@ body {
 
     box-shadow:
         0 0 8px
-        rgba(53,199,138,0.5);
-
+        rgba(53, 199, 138, 0.5);
 }
 
 
 /* =====================================================
-   CLEAR
+   CLEAR CHAT
 ===================================================== */
 
 .clear-chat {
-
     border:
         1px solid var(--border);
 
@@ -372,58 +335,65 @@ body {
     cursor:
         pointer;
 
-    transition:
-        0.18s ease;
+    white-space:
+        nowrap;
 
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
 }
 
-
 .clear-chat:hover {
-
     color: white;
 
     border-color:
         var(--border-light);
 
     background:
-        rgba(255,255,255,0.04);
-
+        rgba(255, 255, 255, 0.04);
 }
 
 
 /* =====================================================
-   CHAT
+   CHAT CONTAINER
 ===================================================== */
 
 .chat-container {
+    width: 100%;
 
     flex: 1;
 
+    min-height: 0;
+
+    overflow-x: hidden;
     overflow-y: auto;
 
     padding:
-        35px 20px;
+        clamp(22px, 4vw, 35px)
+        clamp(12px, 4vw, 20px);
 
-    scroll-behavior:
-        smooth;
+    scroll-behavior: smooth;
 
+    overscroll-behavior:
+        contain;
+
+    -webkit-overflow-scrolling:
+        touch;
 }
 
+
+/* Scrollbar */
 
 .chat-container::-webkit-scrollbar {
-
     width: 5px;
-
 }
 
-
 .chat-container::-webkit-scrollbar-thumb {
-
     background:
-        rgba(255,255,255,0.09);
+        rgba(255, 255, 255, 0.09);
 
     border-radius: 20px;
-
 }
 
 
@@ -432,29 +402,26 @@ body {
 ===================================================== */
 
 .welcome-screen {
-
+    width: 100%;
     height: 100%;
 
-    min-height: 350px;
+    min-height: 320px;
 
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
     text-align: center;
 
+    padding: 20px;
 }
 
-
 .nova-orb {
-
-    width: 86px;
-
-    height: 86px;
+    width: clamp(68px, 12vw, 86px);
+    height: clamp(68px, 12vw, 86px);
 
     padding: 5px;
 
@@ -468,32 +435,25 @@ body {
         );
 
     box-shadow:
-
         0 20px 50px
-        rgba(37,99,235,0.22),
+        rgba(37, 99, 235, 0.22),
 
         inset 0 1px 2px
-        rgba(255,255,255,0.3);
+        rgba(255, 255, 255, 0.3);
 
     transform:
         perspective(500px)
         rotateX(8deg);
-
 }
 
-
 .orb-inner {
-
     width: 100%;
-
     height: 100%;
 
     border-radius: 50%;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     background:
@@ -503,38 +463,38 @@ body {
             #12316e 70%
         );
 
-    font-size: 25px;
+    font-size:
+        clamp(20px, 4vw, 25px);
 
     font-weight: 700;
 
     box-shadow:
         inset 0 3px 8px
-        rgba(255,255,255,0.14);
-
+        rgba(255, 255, 255, 0.14);
 }
 
-
 .welcome-screen h2 {
-
     margin-top: 24px;
 
-    font-size: 22px;
+    font-size:
+        clamp(20px, 4vw, 22px);
 
     font-weight: 600;
 
     letter-spacing: -0.5px;
-
 }
 
-
 .welcome-screen p {
+    max-width: 330px;
 
     margin-top: 7px;
 
     color: var(--muted);
 
-    font-size: 13px;
+    font-size:
+        clamp(12px, 2.5vw, 13px);
 
+    line-height: 1.6;
 }
 
 
@@ -543,9 +503,7 @@ body {
 ===================================================== */
 
 .chat-message {
-
     width: 100%;
-
     max-width: 760px;
 
     margin:
@@ -555,21 +513,34 @@ body {
 
     gap: 12px;
 
+    animation:
+        messageIn 0.2s ease-out;
 }
 
+@keyframes messageIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .chat-message.user {
-
     justify-content:
         flex-end;
-
 }
 
 
+/* =====================================================
+   AVATAR
+===================================================== */
+
 .avatar {
-
     width: 30px;
-
     height: 30px;
 
     flex-shrink: 0;
@@ -577,13 +548,10 @@ body {
     border-radius: 9px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 9px;
-
     font-weight: 700;
 
     background:
@@ -591,38 +559,34 @@ body {
 
     border:
         1px solid var(--border);
-
 }
-
 
 .chat-message.user .avatar {
-
     order: 2;
-
 }
 
+
+/* =====================================================
+   MESSAGE CONTENT
+===================================================== */
 
 .message-content {
-
     max-width:
         min(620px, 80%);
-
+    min-width: 0;
 }
 
-
 .message-name {
-
     margin-bottom: 5px;
 
     font-size: 10px;
 
     color:
         var(--muted-2);
-
 }
 
-
 .message-bubble {
+    max-width: 100%;
 
     padding:
         12px 15px;
@@ -631,7 +595,7 @@ body {
         13px;
 
     font-size:
-        13px;
+        clamp(12px, 2vw, 13px);
 
     line-height:
         1.65;
@@ -639,12 +603,15 @@ body {
     white-space:
         pre-wrap;
 
-}
+    overflow-wrap:
+        anywhere;
 
+    word-break:
+        break-word;
+}
 
 .chat-message.assistant
 .message-bubble {
-
     background:
         var(--surface-2);
 
@@ -653,14 +620,11 @@ body {
 
     box-shadow:
         0 5px 20px
-        rgba(0,0,0,0.12);
-
+        rgba(0, 0, 0, 0.12);
 }
-
 
 .chat-message.user
 .message-bubble {
-
     background:
         #163a76;
 
@@ -669,38 +633,52 @@ body {
 
     border:
         1px solid
-        rgba(79,140,255,0.2);
+        rgba(79, 140, 255, 0.2);
 
     box-shadow:
         0 7px 22px
-        rgba(0,0,0,0.18);
-
+        rgba(0, 0, 0, 0.18);
 }
 
 
-/* Urdu */
+/* =====================================================
+   URDU
+===================================================== */
 
 .chat-message.urdu
 .message-bubble {
+    direction: rtl;
 
-    direction:
-        rtl;
-
-    text-align:
-        right;
+    text-align: right;
 
     font-family:
         "Noto Nastaliq Urdu",
+        "Noto Naskh Arabic",
         "Noto Sans Arabic",
         "Segoe UI",
         sans-serif;
 
     font-size:
-        14px;
+        clamp(13px, 2.5vw, 15px);
 
     line-height:
         2;
+}
 
+
+/* =====================================================
+   COMPOSER AREA
+===================================================== */
+
+.composer-area {
+    width: 100%;
+
+    flex-shrink: 0;
+
+    padding:
+        10px
+        clamp(12px, 4vw, 20px)
+        max(15px, env(safe-area-inset-bottom));
 }
 
 
@@ -708,31 +686,19 @@ body {
    COMPOSER
 ===================================================== */
 
-.composer-area {
-
-    flex-shrink: 0;
-
-    padding:
-        10px 20px 22px;
-
-}
-
-
 .composer {
-
     width: 100%;
-
     max-width: 760px;
 
     min-height: 58px;
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 
     display: flex;
-
     align-items: center;
 
-    gap: 10px;
+    gap: 8px;
 
     padding:
         7px 8px 7px 10px;
@@ -742,40 +708,37 @@ body {
 
     border:
         1px solid
-        rgba(255,255,255,0.1);
+        rgba(255, 255, 255, 0.1);
 
     border-radius:
         17px;
 
     box-shadow:
-
         0 14px 35px
-        rgba(0,0,0,0.28),
+        rgba(0, 0, 0, 0.28),
 
         inset 0 1px 0
-        rgba(255,255,255,0.035);
-
+        rgba(255, 255, 255, 0.035);
 }
-
 
 .composer:focus-within {
-
     border-color:
-        rgba(79,140,255,0.4);
+        rgba(79, 140, 255, 0.4);
 
     box-shadow:
-
         0 14px 35px
-        rgba(0,0,0,0.28),
+        rgba(0, 0, 0, 0.28),
 
         0 0 0 3px
-        rgba(79,140,255,0.06);
-
+        rgba(79, 140, 255, 0.06);
 }
 
 
-#textInput {
+/* =====================================================
+   INPUT
+===================================================== */
 
+#textInput {
     flex: 1;
 
     min-width: 0;
@@ -790,16 +753,15 @@ body {
 
     color: var(--text);
 
-    font-size: 13px;
+    font-family: inherit;
 
+    font-size:
+        clamp(12px, 2.5vw, 13px);
 }
 
-
 #textInput::placeholder {
-
     color:
         #59636e;
-
 }
 
 
@@ -808,9 +770,7 @@ body {
 ===================================================== */
 
 .mic-button {
-
     width: 42px;
-
     height: 42px;
 
     flex-shrink: 0;
@@ -841,62 +801,57 @@ body {
     transition:
         0.18s ease;
 
+    touch-action:
+        manipulation;
 }
 
-
 .mic-button:hover {
-
     background:
         #1b2733;
 
     color:
         white;
-
 }
 
+.mic-button:active {
+    transform:
+        scale(0.96);
+}
 
 .mic-button.listening {
-
     background:
         #263f6c;
 
     border-color:
-        rgba(79,140,255,0.6);
+        rgba(79, 140, 255, 0.6);
 
     box-shadow:
         0 0 0 4px
-        rgba(79,140,255,0.08);
-
+        rgba(79, 140, 255, 0.08);
 }
 
-
 .mic-symbol {
-
     width: 9px;
-
     height: 14px;
 
     border-radius: 6px;
 
-    background: currentColor;
+    background:
+        currentColor;
 
-    position: relative;
-
+    position:
+        relative;
 }
 
-
 .mic-symbol::after {
-
     content: "";
 
     position: absolute;
 
     left: 50%;
-
     bottom: -6px;
 
     width: 15px;
-
     height: 10px;
 
     transform:
@@ -905,26 +860,22 @@ body {
     border:
         2px solid currentColor;
 
-    border-top: 0;
+    border-top:
+        0;
 
     border-radius:
         0 0 9px 9px;
-
 }
 
-
 .mic-symbol::before {
-
     content: "";
 
     position: absolute;
 
     left: 50%;
-
     bottom: -11px;
 
     width: 2px;
-
     height: 6px;
 
     transform:
@@ -932,7 +883,6 @@ body {
 
     background:
         currentColor;
-
 }
 
 
@@ -941,9 +891,7 @@ body {
 ===================================================== */
 
 .send-button {
-
     width: 42px;
-
     height: 42px;
 
     flex-shrink: 0;
@@ -955,48 +903,55 @@ body {
     background:
         var(--accent);
 
-    color: white;
+    color:
+        white;
 
-    font-size: 19px;
+    font-size:
+        19px;
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
     box-shadow:
         0 6px 15px
-        rgba(37,99,235,0.25);
+        rgba(37, 99, 235, 0.25);
 
     transition:
         0.18s ease;
 
+    touch-action:
+        manipulation;
 }
 
-
 .send-button:hover {
-
     background:
-        #6198ff;
+        var(--accent-hover);
 
     transform:
         translateY(-1px);
+}
 
+.send-button:active {
+    transform:
+        scale(0.96);
 }
 
 
 /* =====================================================
-   FOOTER
+   COMPOSER FOOTER
 ===================================================== */
 
 .composer-footer {
-
     width: 100%;
-
     max-width: 760px;
 
     margin:
         8px auto 0;
 
-    display:
-        flex;
+    padding:
+        0 3px;
+
+    display: flex;
 
     justify-content:
         space-between;
@@ -1004,20 +959,20 @@ body {
     align-items:
         center;
 
+    gap: 10px;
+
     color:
         var(--muted-2);
 
     font-size:
         9px;
-
 }
 
-
 .stop-button {
-
     border: 0;
 
-    background: transparent;
+    background:
+        transparent;
 
     color:
         var(--muted-2);
@@ -1028,14 +983,13 @@ body {
     cursor:
         pointer;
 
+    white-space:
+        nowrap;
 }
 
-
 .stop-button:hover {
-
     color:
         var(--muted);
-
 }
 
 
@@ -1044,11 +998,9 @@ body {
 ===================================================== */
 
 .listening-indicator {
-
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 5px;
@@ -1059,21 +1011,14 @@ body {
         var(--accent);
 
     font-size: 10px;
-
 }
-
 
 .listening-indicator.active {
-
     display: flex;
-
 }
 
-
 .wave {
-
     width: 2px;
-
     height: 10px;
 
     border-radius: 3px;
@@ -1085,28 +1030,19 @@ body {
         wave 0.8s
         ease-in-out
         infinite;
-
 }
-
 
 .wave:nth-child(2) {
-
     animation-delay:
         0.15s;
-
 }
-
 
 .wave:nth-child(3) {
-
     animation-delay:
         0.3s;
-
 }
 
-
 @keyframes wave {
-
     0%,
     100% {
         height: 6px;
@@ -1115,111 +1051,516 @@ body {
     50% {
         height: 15px;
     }
+}
+
+
+/* =====================================================
+   TABLETS
+===================================================== */
+
+@media (max-width: 900px) {
+
+    :root {
+        --header-height: 64px;
+    }
+
+    .topbar {
+        padding:
+            0 18px;
+    }
+
+    .chat-message {
+        max-width:
+            700px;
+    }
 
 }
 
 
 /* =====================================================
-   MOBILE
+   SMALL TABLETS / LARGE PHONES
 ===================================================== */
 
 @media (max-width: 700px) {
 
     .topbar {
-
-        height:
-            auto;
-
-        min-height:
-            62px;
+        min-height: 62px;
 
         padding:
-            9px 12px;
+            8px 12px;
 
+        gap: 8px;
     }
 
 
     .brand-info {
-
-        display:
-            none;
-
+        display: none;
     }
 
 
     .topbar-right {
+        flex: 1;
 
-        gap:
-            7px;
+        justify-content:
+            flex-end;
 
-    }
-
-
-    .language-selector {
-
-        order:
-            1;
-
-    }
-
-
-    .language-btn {
-
-        padding:
-            6px 7px;
-
-        font-size:
-            9px;
-
+        gap: 6px;
     }
 
 
     .header-divider,
     .status {
+        display: none;
+    }
 
-        display:
-            none;
 
+    .language-selector {
+        max-width:
+            100%;
+    }
+
+
+    .language-btn {
+        padding:
+            6px 8px;
+
+        font-size:
+            9px;
     }
 
 
     .clear-chat {
-
         padding:
             6px 8px;
 
+        font-size:
+            9px;
     }
 
 
     .chat-container {
-
         padding:
-            25px 13px;
-
+            20px 12px;
     }
 
 
-    .composer-area {
+    .chat-message {
+        gap:
+            8px;
 
-        padding:
-            9px 12px 15px;
-
+        margin-bottom:
+            18px;
     }
 
 
     .message-content {
-
         max-width:
-            86%;
+            84%;
+    }
 
+
+    .avatar {
+        width:
+            28px;
+
+        height:
+            28px;
+    }
+
+
+    .message-bubble {
+        padding:
+            10px 12px;
+
+        border-radius:
+            12px;
+    }
+
+
+    .composer-area {
+        padding:
+            8px 10px
+            max(12px, env(safe-area-inset-bottom));
+    }
+
+
+    .composer {
+        min-height:
+            54px;
+
+        padding:
+            6px 7px 6px 8px;
+
+        border-radius:
+            15px;
+    }
+
+
+    .mic-button,
+    .send-button {
+        width:
+            40px;
+
+        height:
+            40px;
+    }
+
+
+    #textInput {
+        height:
+            40px;
     }
 
 
     .composer-footer {
+        font-size:
+            8px;
+    }
+
+}
+
+
+/* =====================================================
+   PHONES
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .topbar {
+        padding:
+            7px 9px;
+    }
+
+
+    .brand-mark {
+        width:
+            34px;
+
+        height:
+            34px;
+
+        border-radius:
+            10px;
+
+        font-size:
+            14px;
+    }
+
+
+    .language-btn {
+        padding:
+            5px 6px;
+
+        font-size:
+            8px;
+    }
+
+
+    .clear-chat {
+        padding:
+            6px 7px;
+
+        font-size:
+            8px;
+    }
+
+
+    .welcome-screen {
+        min-height:
+            280px;
 
         padding:
-            0 3px;
+            15px;
+    }
 
+
+    .welcome-screen h2 {
+        margin-top:
+            18px;
+
+        font-size:
+            19px;
+    }
+
+
+    .welcome-screen p {
+        font-size:
+            11px;
+    }
+
+
+    .chat-container {
+        padding:
+            16px 9px;
+    }
+
+
+    .chat-message {
+        gap:
+            6px;
+    }
+
+
+    .message-content {
+        max-width:
+            calc(100% - 34px);
+    }
+
+
+    .message-name {
+        font-size:
+            9px;
+    }
+
+
+    .message-bubble {
+        font-size:
+            12px;
+
+        line-height:
+            1.6;
+
+        padding:
+            9px 11px;
+    }
+
+
+    .chat-message.urdu
+    .message-bubble {
+        font-size:
+            13px;
+
+        line-height:
+            1.9;
+    }
+
+
+    .avatar {
+        width:
+            27px;
+
+        height:
+            27px;
+
+        font-size:
+            8px;
+
+        border-radius:
+            8px;
+    }
+
+
+    .composer-area {
+        padding:
+            7px 8px
+            max(10px, env(safe-area-inset-bottom));
+    }
+
+
+    .composer {
+        gap:
+            6px;
+
+        min-height:
+            52px;
+
+        border-radius:
+            14px;
+    }
+
+
+    .mic-button,
+    .send-button {
+        width:
+            38px;
+
+        height:
+            38px;
+
+        border-radius:
+            10px;
+    }
+
+
+    #textInput {
+        font-size:
+            12px;
+    }
+
+
+    .composer-footer {
+        margin-top:
+            6px;
+
+        font-size:
+            7px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 360px) {
+
+    .language-btn {
+        padding:
+            5px;
+
+        font-size:
+            7px;
+    }
+
+
+    .clear-chat {
+        font-size:
+            7px;
+
+        padding:
+            5px;
+    }
+
+
+    .brand-mark {
+        width:
+            32px;
+
+        height:
+            32px;
+    }
+
+
+    .message-content {
+        max-width:
+            calc(100% - 31px);
+    }
+
+
+    .message-bubble {
+        font-size:
+            11px;
+    }
+
+
+    .chat-message.urdu
+    .message-bubble {
+        font-size:
+            12px;
+    }
+
+}
+
+
+/* =====================================================
+   LANDSCAPE PHONES
+===================================================== */
+
+@media (
+    max-height: 500px
+) and (
+    orientation: landscape
+) {
+
+    .topbar {
+        min-height:
+            52px;
+    }
+
+
+    .welcome-screen {
+        min-height:
+            220px;
+    }
+
+
+    .nova-orb {
+        width:
+            55px;
+
+        height:
+            55px;
+    }
+
+
+    .welcome-screen h2 {
+        margin-top:
+            12px;
+
+        font-size:
+            17px;
+    }
+
+
+    .welcome-screen p {
+        display:
+            none;
+    }
+
+
+    .chat-container {
+        padding:
+            15px;
+    }
+
+
+    .composer-area {
+        padding-top:
+            5px;
+
+        padding-bottom:
+            7px;
+    }
+
+
+    .composer-footer {
+        display:
+            none;
+    }
+
+}
+
+
+/* =====================================================
+   TOUCH DEVICES
+===================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .language-btn,
+    .clear-chat,
+    .mic-button,
+    .send-button,
+    .stop-button {
+        -webkit-tap-highlight-color:
+            transparent;
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            0.01ms !important;
     }
 
 }
